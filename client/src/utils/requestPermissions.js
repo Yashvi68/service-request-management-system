@@ -13,3 +13,15 @@ export function canEditRequest(user, request) {
 
     return EDITABLE_STATUSES.includes(request.status)
 }
+
+export function canDeleteRequest(user, request) {
+    if (!user || !request || user.role !== ROLES.USER) {
+        return false
+    }
+
+    if (request.user_id !== user.id) {
+        return false
+    }
+
+    return request.status === 'OPEN'
+}

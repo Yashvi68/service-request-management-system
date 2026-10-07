@@ -9,7 +9,7 @@ import ConfirmDialog from '../components/ConfirmDialog.jsx'
 import { EmptyState, ErrorState, LoadingState } from '../components/PageState.jsx'
 import { formatDate } from '../utils/formatDate.js'
 import { getErrorMessage, isUnauthorized } from '../utils/getErrorMessage.js'
-import { canEditRequest } from '../utils/requestPermissions.js'
+import { canEditRequest, canDeleteRequest } from '../utils/requestPermissions.js'
 import './RequestListPage.scss'
 
 const STATUS_VALUES = STATUSES.map((item) => item.value)
@@ -170,9 +170,11 @@ export default function RequestListPage() {
                                         {canEditRequest(user, request) && (
                                             <Link className="button small secondary" to={`/requests/${request.id}/edit`}>Edit</Link>
                                         )}
-                                        <button type="button" className="button small danger" onClick={() => setPendingDelete(request)}>
-                                            Delete
-                                        </button>
+                                        {canDeleteRequest(user, request) && (
+                                            <button type="button" className="button small danger" onClick={() => setPendingDelete(request)}>
+                                                Delete
+                                            </button>
+                                        )}
                                     </td>
                                 </tr>
                             ))}

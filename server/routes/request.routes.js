@@ -44,6 +44,6 @@ router.patch(
     updateRequest
 )
 
-router.delete('/:id', authorizeRoles('USER', 'ADMIN'), validate(requestIdSchema, 'params'), deleteRequest)
+router.delete('/:id', authorizeRoles('USER'), validate(requestIdSchema, 'params'), deleteRequest)
 
 export default router

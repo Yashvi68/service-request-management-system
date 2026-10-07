@@ -11,7 +11,7 @@ import FormField from '../components/FormField.jsx'
 import { ErrorState, LoadingState } from '../components/PageState.jsx'
 import { formatDate } from '../utils/formatDate.js'
 import { getErrorMessage, isUnauthorized } from '../utils/getErrorMessage.js'
-import { canEditRequest } from '../utils/requestPermissions.js'
+import { canEditRequest, canDeleteRequest } from '../utils/requestPermissions.js'
 import './RequestDetailsPage.scss'
 
 function StatusForm({ request, onUpdated }) {
@@ -149,14 +149,18 @@ export default function RequestDetailsPage() {
                                 <StatusBadge status={request.status} />
                             </div>
                         </div>
-                        <div className="button-row">
-                            {canEditRequest(user, request) && (
-                                <Link className="button secondary" to={`/requests/${request.id}/edit`}>Edit</Link>
-                            )}
-                            <button type="button" className="button danger" onClick={() => setConfirmingDelete(true)}>
-                                Delete
-                            </button>
-                        </div>
+                        {(canEditRequest(user, request) || canDeleteRequest(user, request)) && (
+                            <div className="button-row">
+                                {canEditRequest(user, request) && (
+                                    <Link className="button secondary" to={`/requests/${request.id}/edit`}>Edit</Link>
+                                )}
+                                {canDeleteRequest(user, request) && (
+                                    <button type="button" className="button danger" onClick={() => setConfirmingDelete(true)}>
+                                        Delete
+                                    </button>
+                                )}
+                            </div>
+                        )}
                     </header>
 
                     <div className="detail-layout">

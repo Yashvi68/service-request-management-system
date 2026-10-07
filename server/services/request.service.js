@@ -89,7 +89,14 @@ const updateRequest = async (id, user, body) => {
 
 const removeRequest = async (id, user) => {
     const existing = await getRequestOrThrow(id)
-    assertCanAccess(existing, user)
+
+    if (user.role !== 'USER' || existing.user_id !== user.id) {
+        throw new AppError('You do not have permission to delete this service request', 403)
+    }
+
+    if (existing.status !== 'OPEN') {
+        throw new AppError('Only open requests can be deleted', 403)
+    }
 
     const deleted = await deleteServiceRequest(id)
 
