@@ -4,7 +4,7 @@ import { DASHBOARD_SUMMARY_KEY, getCache, setCache } from '../config/redis.js'
 const getSummary = async () => {
     const cached = await getCache(DASHBOARD_SUMMARY_KEY)
 
-    if (cached) {
+    if (cached && cached.overdue !== undefined) {
         return cached
     }
 
@@ -15,6 +15,7 @@ const getSummary = async () => {
         inProgress: row.in_progress,
         resolved: row.resolved,
         highPriority: row.high_priority,
+        overdue: row.overdue,
     }
 
     await setCache(DASHBOARD_SUMMARY_KEY, summary)

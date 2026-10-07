@@ -138,7 +138,11 @@ const getDashboardSummary = async () => {
             COUNT(*) FILTER (WHERE status = 'OPEN')::int AS open,
             COUNT(*) FILTER (WHERE status = 'IN_PROGRESS')::int AS in_progress,
             COUNT(*) FILTER (WHERE status = 'RESOLVED')::int AS resolved,
-            COUNT(*) FILTER (WHERE priority = 'HIGH')::int AS high_priority
+            COUNT(*) FILTER (WHERE priority = 'HIGH')::int AS high_priority,
+            COUNT(*) FILTER (
+                WHERE status IN ('OPEN', 'IN_PROGRESS')
+                AND created_at < NOW() - INTERVAL '24 hours'
+            )::int AS overdue
         FROM service_requests
     `
 

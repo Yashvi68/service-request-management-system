@@ -11,6 +11,7 @@ const CARDS = [
     { key: 'inProgress', label: 'In progress', to: '/requests?status=IN_PROGRESS', hint: 'Currently being handled', tone: 'progress' },
     { key: 'resolved', label: 'Resolved', to: '/requests?status=RESOLVED', hint: 'Finished', tone: 'resolved' },
     { key: 'highPriority', label: 'High priority', to: '/requests?priority=HIGH', hint: 'Needs attention', tone: 'high' },
+    { key: 'overdue', label: 'Overdue', hint: 'Open or in progress for more than 24 hours', tone: 'overdue' },
 ]
 
 export default function DashboardPage() {
@@ -57,13 +58,29 @@ export default function DashboardPage() {
             {!loading && !error && summary && (
                 <>
                     <div className="stat-grid">
-                        {CARDS.map((card) => (
-                            <Link key={card.key} to={card.to} className={`stat-card ${card.tone || ''}`}>
-                                <span className="stat-label">{card.label}</span>
-                                <span className="stat-value">{summary[card.key] ?? 0}</span>
-                                <span className="stat-hint">{card.hint}</span>
-                            </Link>
-                        ))}
+                        {CARDS.map((card) => {
+                            const content = (
+                                <>
+                                    <span className="stat-label">{card.label}</span>
+                                    <span className="stat-value">{summary[card.key] ?? 0}</span>
+                                    <span className="stat-hint">{card.hint}</span>
+                                </>
+                            )
+
+                            if (!card.to) {
+                                return (
+                                    <div key={card.key} className={`stat-card ${card.tone || ''}`}>
+                                        {content}
+                                    </div>
+                                )
+                            }
+
+                            return (
+                                <Link key={card.key} to={card.to} className={`stat-card ${card.tone || ''}`}>
+                                    {content}
+                                </Link>
+                            )
+                        })}
                     </div>
                     {summary.total === 0 && (
                         <p className="hint">There are no service requests yet. Totals stay at zero until one is created.</p>

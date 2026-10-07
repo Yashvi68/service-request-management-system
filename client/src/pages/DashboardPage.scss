@@ -39,6 +39,12 @@
     border-left-color: var(--danger);
 }
 
+.stat-card.overdue {
+    background: var(--warning-soft);
+    border-color: #ead7b4;
+    border-left-color: var(--warning);
+}
+
 .stat-label { font-weight: 700; }
 
 .stat-value {
