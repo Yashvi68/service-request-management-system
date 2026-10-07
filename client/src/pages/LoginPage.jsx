@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import AuthLayout from '../layouts/AuthLayout.jsx'
 import FormField from '../components/FormField.jsx'
+import PasswordField from '../components/PasswordField.jsx'
 import { homePath } from '../constants/options.js'
 import { useAuth } from '../hooks/useAuth.js'
 import { consumeSessionNotice } from '../utils/authStorage.js'
@@ -32,7 +33,7 @@ export default function LoginPage() {
                 email: values.email.trim(),
                 password: values.password,
             })
-            toast.success('Signed in')
+            toast.success('Signed in successfully')
             const destination = location.state?.from && location.state.from !== '/login'
                 ? location.state.from
                 : homePath(user.role)
@@ -73,9 +74,8 @@ export default function LoginPage() {
                 </FormField>
 
                 <FormField id="password" label="Password" error={errors.password?.message}>
-                    <input
+                    <PasswordField
                         id="password"
-                        type="password"
                         autoComplete="current-password"
                         aria-invalid={errors.password ? 'true' : undefined}
                         aria-describedby={errors.password ? 'password-error' : undefined}

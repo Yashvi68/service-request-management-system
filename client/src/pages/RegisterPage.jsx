@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import AuthLayout from '../layouts/AuthLayout.jsx'
 import FormField from '../components/FormField.jsx'
+import PasswordField from '../components/PasswordField.jsx'
 import { registerAccount } from '../services/authService.js'
 import { getErrorMessage } from '../utils/getErrorMessage.js'
 
@@ -88,9 +89,8 @@ export default function RegisterPage() {
                 </FormField>
 
                 <FormField id="password" label="Password" error={errors.password?.message}>
-                    <input
+                    <PasswordField
                         id="password"
-                        type="password"
                         autoComplete="new-password"
                         aria-invalid={errors.password ? 'true' : undefined}
                         aria-describedby={errors.password ? 'password-error' : undefined}
@@ -103,9 +103,8 @@ export default function RegisterPage() {
                 </FormField>
 
                 <FormField id="confirmPassword" label="Confirm password" error={errors.confirmPassword?.message}>
-                    <input
+                    <PasswordField
                         id="confirmPassword"
-                        type="password"
                         autoComplete="new-password"
                         aria-invalid={errors.confirmPassword ? 'true' : undefined}
                         aria-describedby={errors.confirmPassword ? 'confirmPassword-error' : undefined}
