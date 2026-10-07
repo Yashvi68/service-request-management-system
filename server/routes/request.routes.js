@@ -22,7 +22,7 @@ const router = Router()
 
 router.use(authenticate)
 
-router.post('/', authorizeRoles('USER', 'ADMIN'), validate(createRequestSchema), createRequest)
+router.post('/', authorizeRoles('USER'), validate(createRequestSchema), createRequest)
 
 router.get('/', authorizeRoles('USER', 'ADMIN'), validate(requestFilterSchema, 'query'), getRequests)
 
@@ -38,7 +38,7 @@ router.get('/:id', authorizeRoles('USER', 'ADMIN'), validate(requestIdSchema, 'p
 
 router.patch(
     '/:id',
-    authorizeRoles('USER', 'ADMIN'),
+    authorizeRoles('USER'),
     validate(requestIdSchema, 'params'),
     validate(updateRequestSchema),
     updateRequest

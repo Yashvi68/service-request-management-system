@@ -28,8 +28,14 @@ const assertCanAccess = (request, user) => {
     }
 }
 
+const EDITABLE_STATUSES = ['OPEN', 'IN_PROGRESS']
+
 const createRequest = async (user, body) => {
-    if (body.status !== undefined && user.role !== 'ADMIN') {
+    if (user.role !== 'USER') {
+        throw new AppError('You do not have permission to create a service request', 403)
+    }
+
+    if (body.status !== undefined) {
         throw new AppError('You do not have permission to set request status', 403)
     }
 
@@ -39,7 +45,6 @@ const createRequest = async (user, body) => {
         description: body.description,
         category: body.category,
         priority: body.priority,
-        status: user.role === 'ADMIN' ? body.status : undefined,
     })
 }
 
@@ -59,7 +64,14 @@ const getRequestById = async (id, user) => {
 
 const updateRequest = async (id, user, body) => {
     const existing = await getRequestOrThrow(id)
-    assertCanAccess(existing, user)
+
+    if (user.role !== 'USER' || existing.user_id !== user.id) {
+        throw new AppError('You do not have permission to edit this service request', 403)
+    }
+
+    if (!EDITABLE_STATUSES.includes(existing.status)) {
+        throw new AppError('Resolved requests cannot be edited', 403)
+    }
 
     const updated = await updateServiceRequest(id, {
         title: body.title,
