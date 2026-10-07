@@ -90,13 +90,7 @@ export default function RequestListPage() {
         <section className="panel">
             <header className="page-header">
                 <div>
-                    <p className="eyebrow">{isAdmin ? 'Admin' : 'My work'}</p>
                     <h1>{isAdmin ? 'All requests' : 'My requests'}</h1>
-                    <p className="lede">
-                        {isAdmin
-                            ? 'Every service request in the system.'
-                            : 'Requests you have submitted.'}
-                    </p>
                 </div>
                 {!isAdmin && <Link className="button primary" to="/requests/new">New request</Link>}
             </header>

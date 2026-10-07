@@ -66,7 +66,10 @@
     background: var(--bg);
 }
 
-.user-name { font-weight: 600; }
+.user-name {
+    font-weight: 600;
+    font-size: 1.25rem;
+}
 
 .page {
     width: 100%;
@@ -75,7 +78,9 @@
 }
 
 @media (max-width: 800px) {
-    .app-shell { flex-direction: column; }
+    .app-shell {
+        flex-direction: column;
+    }
 
     .sidebar {
         width: auto;
@@ -85,8 +90,14 @@
         border-bottom: 1px solid var(--line);
     }
 
-    .nav { flex-direction: row; flex-wrap: wrap; }
+    .nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
 
     .topbar-inner,
-    .page { padding-left: 16px; padding-right: 16px; }
+    .page {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
 }

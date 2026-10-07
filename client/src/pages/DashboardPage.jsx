@@ -6,10 +6,10 @@ import { getErrorMessage, isUnauthorized } from '../utils/getErrorMessage.js'
 import './DashboardPage.scss'
 
 const CARDS = [
-    { key: 'total', label: 'Total requests', to: '/requests', hint: 'Every request' },
-    { key: 'open', label: 'Open', to: '/requests?status=OPEN', hint: 'Waiting to start' },
-    { key: 'inProgress', label: 'In progress', to: '/requests?status=IN_PROGRESS', hint: 'Currently being handled' },
-    { key: 'resolved', label: 'Resolved', to: '/requests?status=RESOLVED', hint: 'Finished' },
+    { key: 'total', label: 'Total requests', to: '/requests', hint: 'Every request', tone: 'total' },
+    { key: 'open', label: 'Open', to: '/requests?status=OPEN', hint: 'Waiting to start', tone: 'open' },
+    { key: 'inProgress', label: 'In progress', to: '/requests?status=IN_PROGRESS', hint: 'Currently being handled', tone: 'progress' },
+    { key: 'resolved', label: 'Resolved', to: '/requests?status=RESOLVED', hint: 'Finished', tone: 'resolved' },
     { key: 'highPriority', label: 'High priority', to: '/requests?priority=HIGH', hint: 'Needs attention', tone: 'high' },
 ]
 
@@ -44,12 +44,10 @@ export default function DashboardPage() {
     }, [reloadKey])
 
     return (
-        <section className="panel">
+        <section className="dashboard">
             <header className="page-header">
                 <div>
-                    <p className="eyebrow">Admin</p>
                     <h1>Dashboard</h1>
-                    <p className="lede">Counts are calculated from the service request database.</p>
                 </div>
             </header>
 

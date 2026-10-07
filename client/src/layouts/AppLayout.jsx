@@ -43,7 +43,7 @@ export default function AppLayout() {
             <div className="workspace">
                 <header className="topbar">
                     <div className="topbar-inner">
-                        <span className="user-name">{user.name}</span>
+                        <span className="user-name">Welcome, {user.name}</span>
                         <button type="button" className="button secondary small" onClick={() => setConfirmingLogout(true)}>
                             Log out
                         </button>

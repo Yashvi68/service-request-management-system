@@ -101,7 +101,11 @@ const removeRequest = async (id, user) => {
 }
 
 const changeRequestStatus = async (id, status) => {
-    await getRequestOrThrow(id)
+    const existing = await getRequestOrThrow(id)
+
+    if (existing.status === 'RESOLVED') {
+        throw new AppError('A resolved request cannot change status', 403)
+    }
 
     const updated = await updateServiceRequestStatus(id, status)
 
