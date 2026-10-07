@@ -1,0 +1,20 @@
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: grid;
+    place-items: center;
+    padding: 16px;
+    background: rgba(28, 36, 48, 0.4);
+}
+
+.modal {
+    width: min(440px, 100%);
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 20px;
+    display: grid;
+    gap: 12px;
+}
+
+.modal .button-row { justify-content: flex-end; }

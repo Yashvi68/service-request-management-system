@@ -1,0 +1,61 @@
+.app-shell { min-height: 100vh; }
+
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(243, 241, 236, 0.92);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(10px);
+}
+
+.topbar-inner,
+.page {
+    width: min(1100px, calc(100% - 32px));
+    margin: 0 auto;
+}
+
+.topbar-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 20px;
+    padding: 14px 0;
+}
+
+.brand {
+    color: var(--ink);
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: -0.03em;
+}
+
+.nav, .topbar-user {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.topbar-user { margin-left: auto; }
+
+.nav-link {
+    color: var(--muted);
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 999px;
+}
+
+.nav-link.active,
+.nav-link:hover {
+    color: var(--ink);
+    background: #fff;
+}
+
+.user-name { font-weight: 600; }
+
+.page { padding: 28px 0 48px; }
+
+@media (max-width: 800px) {
+    .topbar-user { margin-left: 0; width: 100%; }
+}

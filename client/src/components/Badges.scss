@@ -1,0 +1,41 @@
+.badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 3px 9px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    background: #eef1f4;
+    color: var(--ink);
+}
+
+.badge.status-OPEN,
+.badge.priority-MEDIUM,
+.badge.role-USER {
+    background: var(--info-soft);
+    color: var(--info);
+}
+
+.badge.status-IN_PROGRESS,
+.badge.priority-LOW {
+    background: var(--warning-soft);
+    color: var(--warning);
+}
+
+.badge.status-RESOLVED,
+.badge.role-ADMIN {
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+}
+
+.badge.priority-HIGH {
+    background: var(--danger-soft);
+    color: var(--danger);
+}
