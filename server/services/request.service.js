@@ -7,6 +7,7 @@ import {
     deleteServiceRequest,
 } from '../models/serviceRequest.model.js'
 import AppError from '../utils/appError.js'
+import { clearDashboardCache } from '../config/redis.js'
 
 const getRequestOrThrow = async (id) => {
     const request = await findServiceRequestById(id)
@@ -39,13 +40,16 @@ const createRequest = async (user, body) => {
         throw new AppError('You do not have permission to set request status', 403)
     }
 
-    return createServiceRequest({
+    const created = await createServiceRequest({
         user_id: user.id,
         title: body.title,
         description: body.description,
         category: body.category,
         priority: body.priority,
     })
+
+    await clearDashboardCache()
+    return created
 }
 
 const getRequests = async (user, filters = {}) => {
@@ -84,6 +88,7 @@ const updateRequest = async (id, user, body) => {
         throw new AppError('At least one field is required to update a service request', 400)
     }
 
+    await clearDashboardCache()
     return updated
 }
 
@@ -104,6 +109,7 @@ const removeRequest = async (id, user) => {
         throw new AppError('Service request not found', 404)
     }
 
+    await clearDashboardCache()
     return deleted
 }
 
@@ -120,6 +126,7 @@ const changeRequestStatus = async (id, status) => {
         throw new AppError('Service request not found', 404)
     }
 
+    await clearDashboardCache()
     return updated
 }
 
