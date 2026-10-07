@@ -4,6 +4,19 @@ const REQUEST_COLUMNS = `
     id, user_id, title, description, category, priority, status, created_at, updated_at
 `
 
+const REQUEST_WITH_REQUESTER = `
+    service_requests.id,
+    service_requests.user_id,
+    service_requests.title,
+    service_requests.description,
+    service_requests.category,
+    service_requests.priority,
+    service_requests.status,
+    service_requests.created_at,
+    service_requests.updated_at,
+    users.name AS requester_name
+`
+
 const createServiceRequest = async ({
     user_id,
     title,
@@ -42,25 +55,26 @@ const findServiceRequests = async ({ userId, status, priority } = {}) => {
 
     if (userId !== undefined && userId !== null) {
         values.push(userId)
-        conditions.push(`user_id = $${values.length}`)
+        conditions.push(`service_requests.user_id = $${values.length}`)
     }
 
     if (status) {
         values.push(status)
-        conditions.push(`status = $${values.length}`)
+        conditions.push(`service_requests.status = $${values.length}`)
     }
 
     if (priority) {
         values.push(priority)
-        conditions.push(`priority = $${values.length}`)
+        conditions.push(`service_requests.priority = $${values.length}`)
     }
 
     const whereClause = conditions.length > 0 ? `WHERE ${conditions.join(' AND ')}` : ''
     const query = `
-        SELECT ${REQUEST_COLUMNS}
+        SELECT ${REQUEST_WITH_REQUESTER}
         FROM service_requests
+        INNER JOIN users ON users.id = service_requests.user_id
         ${whereClause}
-        ORDER BY created_at DESC, id DESC
+        ORDER BY service_requests.created_at DESC, service_requests.id DESC
     `
 
     const { rows } = await pool.query(query, values)
@@ -69,9 +83,10 @@ const findServiceRequests = async ({ userId, status, priority } = {}) => {
 
 const findServiceRequestById = async (id) => {
     const query = `
-        SELECT ${REQUEST_COLUMNS}
+        SELECT ${REQUEST_WITH_REQUESTER}
         FROM service_requests
-        WHERE id = $1
+        INNER JOIN users ON users.id = service_requests.user_id
+        WHERE service_requests.id = $1
     `
 
     const { rows } = await pool.query(query, [id])

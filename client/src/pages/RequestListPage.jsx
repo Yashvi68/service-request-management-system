@@ -10,6 +10,7 @@ import { EmptyState, ErrorState, LoadingState } from '../components/PageState.js
 import { formatDate } from '../utils/formatDate.js'
 import { getErrorMessage, isUnauthorized } from '../utils/getErrorMessage.js'
 import { canEditRequest, canDeleteRequest } from '../utils/requestPermissions.js'
+import emptyRequests from '../assets/empty-requests.svg'
 import './RequestListPage.scss'
 
 const STATUS_VALUES = STATUSES.map((item) => item.value)
@@ -126,6 +127,7 @@ export default function RequestListPage() {
 
             {!loading && !error && requests.length === 0 && (
                 <EmptyState
+                    illustration={<img className="empty-illustration" src={emptyRequests} alt="" />}
                     title={filtersActive ? 'No matching requests' : 'No requests yet'}
                     message={
                         filtersActive
@@ -137,9 +139,7 @@ export default function RequestListPage() {
                     action={
                         filtersActive
                             ? <button type="button" className="button secondary" onClick={() => setSearchParams({})}>Clear filters</button>
-                            : !isAdmin
-                                ? <Link className="button primary" to="/requests/new">Create a request</Link>
-                                : null
+                            : null
                     }
                 />
             )}

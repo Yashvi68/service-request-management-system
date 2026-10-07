@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { ROLES, STATUSES } from '../constants/options.js'
+import { labelFor, ROLES, STATUSES, STATUS_LABELS } from '../constants/options.js'
 import { useAuth } from '../hooks/useAuth.js'
 import { deleteRequest, getRequest, updateRequestStatus } from '../services/requestService.js'
 import { CategoryBadge, PriorityBadge, StatusBadge } from '../components/Badges.jsx'
@@ -141,7 +141,6 @@ export default function RequestDetailsPage() {
                 <>
                     <header className="page-header">
                         <div>
-                            <p className="eyebrow">Request #{request.id}</p>
                             <h1>{request.title}</h1>
                             <div className="badge-row">
                                 <CategoryBadge category={request.category} />
@@ -174,7 +173,11 @@ export default function RequestDetailsPage() {
                             <dl className="meta-list">
                                 <div>
                                     <dt>Requester</dt>
-                                    <dd>{request.user_id === user?.id ? 'You' : `User #${request.user_id}`}</dd>
+                                    <dd>{request.user_id === user?.id ? 'You' : (request.requester_name || `User #${request.user_id}`)}</dd>
+                                </div>
+                                <div>
+                                    <dt>Status</dt>
+                                    <dd>{labelFor(STATUS_LABELS, request.status)}</dd>
                                 </div>
                                 <div>
                                     <dt>Created</dt>

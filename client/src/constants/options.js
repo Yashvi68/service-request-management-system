@@ -26,7 +26,7 @@ export const PRIORITY_LABELS = Object.fromEntries(PRIORITIES.map((item) => [item
 export const STATUS_LABELS = Object.fromEntries(STATUSES.map((item) => [item.value, item.label]))
 
 export function homePath(role) {
-    return role === ROLES.ADMIN ? '/dashboard' : '/requests'
+    return role === ROLES.ADMIN ? '/dashboard' : '/home'
 }
 
 export function labelFor(labels, value) {

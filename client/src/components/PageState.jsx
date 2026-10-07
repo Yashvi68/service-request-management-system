@@ -9,9 +9,10 @@ export function LoadingState({ label = 'Loading...' }) {
     )
 }
 
-export function EmptyState({ title, message, action }) {
+export function EmptyState({ title, message, action, illustration }) {
     return (
         <div className="state-panel">
+            {illustration}
             <h2>{title}</h2>
             <p>{message}</p>
             {action}

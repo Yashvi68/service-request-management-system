@@ -49,7 +49,7 @@ const createRequest = async (user, body) => {
     })
 
     await clearDashboardCache()
-    return created
+    return findServiceRequestById(created.id)
 }
 
 const getRequests = async (user, filters = {}) => {
@@ -89,7 +89,7 @@ const updateRequest = async (id, user, body) => {
     }
 
     await clearDashboardCache()
-    return updated
+    return findServiceRequestById(id)
 }
 
 const removeRequest = async (id, user) => {
@@ -127,7 +127,7 @@ const changeRequestStatus = async (id, status) => {
     }
 
     await clearDashboardCache()
-    return updated
+    return findServiceRequestById(id)
 }
 
 export {

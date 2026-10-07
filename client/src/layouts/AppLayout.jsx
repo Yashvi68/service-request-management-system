@@ -29,9 +29,13 @@ export default function AppLayout() {
                 </NavLink>
 
                 <nav className="nav" aria-label="Main">
-                    {isAdmin && (
+                    {isAdmin ? (
                         <NavLink to="/dashboard" end className="nav-link">
                             Dashboard
+                        </NavLink>
+                    ) : (
+                        <NavLink to="/home" end className="nav-link">
+                            Home
                         </NavLink>
                     )}
                     <NavLink to="/requests" end className="nav-link">

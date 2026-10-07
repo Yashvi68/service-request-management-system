@@ -7,6 +7,7 @@ import AppLayout from './layouts/AppLayout.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import RegisterPage from './pages/RegisterPage.jsx'
 import DashboardPage from './pages/DashboardPage.jsx'
+import HomePage from './pages/HomePage.jsx'
 import RequestListPage from './pages/RequestListPage.jsx'
 import CreateRequestPage from './pages/CreateRequestPage.jsx'
 import EditRequestPage from './pages/EditRequestPage.jsx'
@@ -24,6 +25,7 @@ function AppRoutes() {
                 <Route element={<AppLayout />}>
                     <Route path="/requests" element={<RequestListPage />} />
                     <Route element={<ProtectedRoute roles={[ROLES.USER]} />}>
+                        <Route path="/home" element={<HomePage />} />
                         <Route path="/requests/new" element={<CreateRequestPage />} />
                         <Route path="/requests/:id/edit" element={<EditRequestPage />} />
                     </Route>
